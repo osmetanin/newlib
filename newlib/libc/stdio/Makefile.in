@@ -71,6 +71,9 @@ CONFIG_CLEAN_VPATH_FILES =
 LIBRARIES = $(noinst_LIBRARIES)
 ARFLAGS = cru
 lib_a_AR = $(AR) $(ARFLAGS)
+@NEWLIB_NANO_FORMATTED_IO_TRUE@am__objects_13 =  \
+@NEWLIB_NANO_FORMATTED_IO_TRUE@     lib_a-tiny-printf.$(OBJEXT) \
+@NEWLIB_NANO_FORMATTED_IO_TRUE@     lib_a-tiny-puts.$(OBJEXT) \
 @NEWLIB_NANO_FORMATTED_IO_FALSE@am__objects_1 =  \
 @NEWLIB_NANO_FORMATTED_IO_FALSE@	lib_a-fiprintf.$(OBJEXT) \
 @NEWLIB_NANO_FORMATTED_IO_FALSE@	lib_a-fiscanf.$(OBJEXT) \
@@ -87,7 +90,7 @@ lib_a_AR = $(AR) $(ARFLAGS)
 @NEWLIB_NANO_FORMATTED_IO_FALSE@	lib_a-vsiprintf.$(OBJEXT) \
 @NEWLIB_NANO_FORMATTED_IO_FALSE@	lib_a-vsiscanf.$(OBJEXT) \
 @NEWLIB_NANO_FORMATTED_IO_FALSE@	lib_a-vsniprintf.$(OBJEXT)
-am__objects_2 = $(am__objects_1) lib_a-clearerr.$(OBJEXT) \
+am__objects_2 = $(am__objects_1) $(am__objects_13) lib_a-clearerr.$(OBJEXT) \
 	lib_a-fclose.$(OBJEXT) lib_a-fdopen.$(OBJEXT) \
 	lib_a-feof.$(OBJEXT) lib_a-ferror.$(OBJEXT) \
 	lib_a-fflush.$(OBJEXT) lib_a-fgetc.$(OBJEXT) \
@@ -189,6 +192,7 @@ am__objects_2 = $(am__objects_1) lib_a-clearerr.$(OBJEXT) \
 @USE_LIBTOOL_FALSE@	$(am__objects_4) $(am__objects_6)
 lib_a_OBJECTS = $(am_lib_a_OBJECTS)
 LTLIBRARIES = $(noinst_LTLIBRARIES)
+@NEWLIB_NANO_FORMATTED_IO_TRUE@am__objects_14 = tiny-printf.lo tiny-puts.lo \
 @NEWLIB_NANO_FORMATTED_IO_FALSE@am__objects_7 = fiprintf.lo fiscanf.lo \
 @NEWLIB_NANO_FORMATTED_IO_FALSE@	iprintf.lo iscanf.lo \
 @NEWLIB_NANO_FORMATTED_IO_FALSE@	siprintf.lo siscanf.lo \
@@ -197,7 +201,7 @@ LTLIBRARIES = $(noinst_LTLIBRARIES)
 @NEWLIB_NANO_FORMATTED_IO_FALSE@	viprintf.lo viscanf.lo \
 @NEWLIB_NANO_FORMATTED_IO_FALSE@	vsiprintf.lo vsiscanf.lo \
 @NEWLIB_NANO_FORMATTED_IO_FALSE@	vsniprintf.lo
-am__objects_8 = $(am__objects_7) clearerr.lo fclose.lo fdopen.lo \
+am__objects_8 = $(am__objects_7) $(am__objects_14) clearerr.lo fclose.lo fdopen.lo \
 	feof.lo ferror.lo fflush.lo fgetc.lo fgetpos.lo fgets.lo \
 	fileno.lo findfp.lo flags.lo fopen.lo fprintf.lo fputc.lo \
 	fputs.lo fread.lo freopen.lo fscanf.lo fseek.lo fsetpos.lo \
@@ -458,10 +462,13 @@ INCLUDES = $(NEWLIB_CFLAGS) $(CROSS_CFLAGS) $(TARGET_CFLAGS)
 @NEWLIB_NANO_FORMATTED_IO_FALSE@	vsiprintf.c			\
 @NEWLIB_NANO_FORMATTED_IO_FALSE@	vsiscanf.c			\
 @NEWLIB_NANO_FORMATTED_IO_FALSE@	vsniprintf.c
+@NEWLIB_NANO_FORMATTED_IO_FALSE@TINY_SOURCES =
 
 @NEWLIB_NANO_FORMATTED_IO_TRUE@GENERAL_INT_FORMATTED_IO_SOURCES = 
+@NEWLIB_NANO_FORMATTED_IO_TRUE@TINY_SOURCES = tiny-printf.c tiny-puts.c
 GENERAL_SOURCES = \
 	$(GENERAL_INT_FORMATTED_IO_SOURCES) \
+    $(TINY_SOURCES) \
 	clearerr.c			\
 	fclose.c			\
 	fdopen.c			\
@@ -905,6 +912,18 @@ lib_a-vsniprintf.o: vsniprintf.c
 
 lib_a-vsniprintf.obj: vsniprintf.c
 	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lib_a_CFLAGS) $(CFLAGS) -c -o lib_a-vsniprintf.obj `if test -f 'vsniprintf.c'; then $(CYGPATH_W) 'vsniprintf.c'; else $(CYGPATH_W) '$(srcdir)/vsniprintf.c'; fi`
+
+lib_a-tiny-printf.o: tiny-printf.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lib_a_CFLAGS) $(CFLAGS) -c -o lib_a-tiny-printf.o `test -f 'tiny-printf.c' || echo '$(srcdir)/'`tiny-printf.c
+
+lib_a-tiny-printf.obj: tiny-printf.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lib_a_CFLAGS) $(CFLAGS) -c -o lib_a-tiny-printf.obj `if test -f 'tiny-printf.c'; then $(CYGPATH_W) 'tiny-printf.c'; else $(CYGPATH_W) '$(srcdir)/tiny-printf.c'; fi`
+
+lib_a-tiny-puts.o: tiny-puts.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lib_a_CFLAGS) $(CFLAGS) -c -o lib_a-tiny-puts.o `test -f 'tiny-puts.c' || echo '$(srcdir)/'`tiny-puts.c
+
+lib_a-tiny-puts.obj: tiny-puts.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lib_a_CFLAGS) $(CFLAGS) -c -o lib_a-tiny-puts.obj `if test -f 'tiny-puts.c'; then $(CYGPATH_W) 'tiny-puts.c'; else $(CYGPATH_W) '$(srcdir)/tiny-puts.c'; fi`
 
 lib_a-clearerr.o: clearerr.c
 	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lib_a_CFLAGS) $(CFLAGS) -c -o lib_a-clearerr.o `test -f 'clearerr.c' || echo '$(srcdir)/'`clearerr.c
@@ -2043,6 +2062,8 @@ $(lpfx)ungetwc.$(oext): local.h
 @NEWLIB_NANO_FORMATTED_IO_TRUE@$(lpfx)nano-vfscanf.$(oext): local.h nano-vfscanf_local.h
 @NEWLIB_NANO_FORMATTED_IO_TRUE@$(lpfx)nano-vfscanf_i.$(oext): local.h nano-vfscanf_local.h
 @NEWLIB_NANO_FORMATTED_IO_TRUE@$(lpfx)nano-vfscanf_float.$(oext): local.h floatio.h nano-vfscanf_local.h
+@NEWLIB_NANO_FORMATTED_IO_TRUE@$(lpfx)tiny-printf.$(oext): local.h nano-vfprintf_local.h
+@NEWLIB_NANO_FORMATTED_IO_TRUE@$(lpfx)tiny-puts.$(oext): local.h nano-vfprintf_local.h
 $(lpfx)vfiprintf.$(oext): local.h
 $(lpfx)vfiscanf.$(oext): local.h floatio.h
 $(lpfx)vfprintf.$(oext): local.h

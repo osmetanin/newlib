@@ -4,6 +4,13 @@ AUTOMAKE_OPTIONS = cygnus
 
 INCLUDES = $(NEWLIB_CFLAGS) $(CROSS_CFLAGS) $(TARGET_CFLAGS)
 
+# tiny-printf.c and tiny-puts.c are derived from the nano printf/puts
+# functions, so other supporting nano functions are required, and the tiny
+# printf/puts will not work without them.
+if NEWLIB_NANO_FORMATTED_IO
+TINY_SOURCES = tiny-puts.c tiny-printf.c
+endif
+
 if NEWLIB_NANO_FORMATTED_IO
 GENERAL_INT_FORMATTED_IO_SOURCES =
 else
@@ -27,6 +34,7 @@ endif
 
 GENERAL_SOURCES = \
 	$(GENERAL_INT_FORMATTED_IO_SOURCES) \
+	$(TINY_SOURCES) \
 	clearerr.c			\
 	fclose.c			\
 	fdopen.c			\
@@ -505,6 +513,8 @@ $(lpfx)nano-vfprintf_float.$(oext): local.h floatio.h nano-vfprintf_local.h
 $(lpfx)nano-vfscanf.$(oext): local.h nano-vfscanf_local.h
 $(lpfx)nano-vfscanf_i.$(oext): local.h nano-vfscanf_local.h
 $(lpfx)nano-vfscanf_float.$(oext): local.h floatio.h nano-vfscanf_local.h
+$(lpfx)tiny-printf.$(oext): local.h nano-vfprintf_local.h
+$(lpfx)tiny-puts.$(oext): local.h nano-vfprintf_local.h
 endif
 $(lpfx)vfiprintf.$(oext): local.h
 $(lpfx)vfiscanf.$(oext): local.h floatio.h
